@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.content-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
+.container {
+  width: 20rem;
+}
+
+.img-container {
+  width: 10rem;
+}
+
+img {
+ width: 100%;
+}
