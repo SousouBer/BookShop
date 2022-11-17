@@ -4,14 +4,35 @@
   box-sizing: border-box;
 }
 
-.content-container{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
+body {
+  font-family: 'Poppins', sans-serif;
 }
 
-.container {
+.container{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  /* background: radial-gradient(circle at -14.3% -17.5%, rgb(245, 168, 168) 4%, rgb(164, 168, 248) 100.2%); */
+  background: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%);
+}
+
+.book-container {
   width: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 2px solid #8a3c3d;
+  padding: 1rem 1rem 0 1rem;
+  border-radius: 9px;
+  /* background: radial-gradient(circle at -14.3% -17.5%, rgb(245, 168, 168) 4%, rgb(164, 168, 248) 100.2%); */
+  /* background: radial-gradient(668px at 2.6% 8.3%, rgb(219, 112, 147) 0%, rgb(255, 228, 225) 49.5%, rgb(200, 130, 200) 99.4%); */
+  /* background: linear-gradient(89.9deg, rgb(102, 64, 123) 0%, rgb(252, 41, 119) 100%, rgb(251, 168, 214) 100.1%); */
+  /* background: linear-gradient(88.8deg, rgb(239, 171, 245) 13.4%, rgb(196, 181, 249) 76.3%); */
+  background-color:  #A9A9A9;
+
 }
 
 .img-container {
@@ -20,4 +41,194 @@
 
 img {
  width: 100%;
+}
+
+.showMore {
+  background-color: #4c00b0;
+  padding: 0.4rem 0.9rem;
+  border-radius: 9px;
+  color: #fff;
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.showMore:hover {
+  color: #4c00b0;
+  background-color: #fff;
+  box-shadow: inset 0 0 0 2px #4c00b0;
+}
+
+.addToBagBtn {
+  font-family: inherit;
+  background-color: #1520A6;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 9px;
+  transition: all 0.3s ease;
+}
+
+.addToBagBtn:hover {
+  color: #1520A6;
+  background-color: #fff;
+  box-shadow: inset 0 0 0 2px #1520A6;
+}
+
+.addAndShowMore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1rem 0;
+}
+
+.purchaseInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4rem;
+}
+
+.book-cost {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.book-title {
+  text-align: center;
+  font-weight: 500;
+}
+
+/* CART SECTION */
+
+.item-img {
+  width: 5rem;
+}
+
+/* .cart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  background-color: blueviolet;
+}
+
+.item-info, .cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+} */
+
+/* .cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+} */
+
+.cart-container {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 1.2rem;
+}
+
+.item-img-container {
+  margin-right: 1rem;
+}
+
+.title-and-price, .item-amount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.item-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.item-price {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #8a3c3d;
+}
+
+.stock {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.item-description {
+  font-size: 1rem;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.increase, .decrease, .delete {
+  width: 1rem;
+}
+
+.amount-number {
+  margin: 0 1rem;
+}
+
+.increase, .decrease, .amount-number {
+  font-size: 1.2rem;
+  font-size: 1.2rem;
+}
+
+.increase {
+  color: #00ab41;
+  cursor: pointer;
+}
+
+.decrease {
+  color: #ff0000;
+  cursor: pointer;
+}
+
+.remove-item {
+  color: #ff0000;
+  font-weight: 700;
+}
+
+.remove_item--x {
+  /* font-size: 1.5rem; */
+  cursor: pointer;
+  font-size: 1rem;
+
+}
+
+.cart {
+  text-align: right;
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.total-sum {
+  font-size: 1.5rem;
+  color: #8a3c3d;
+  font-weight: 700;
+}
+
+.item-description {
+  width: 35rem;
 }
