@@ -18,9 +18,11 @@ function addData(books) {
   for (let book of booksArray) {
     const { author, imageLink, title, price, desc } = book;
 
+
     const fragment = new DocumentFragment();
     const bookContainer = document.createElement("div");
     bookContainer.classList.add("book-container");
+    bookContainer.id = book.id;
 
     const imgContainer = document.createElement("div");
     imgContainer.classList.add("img-container");
@@ -56,13 +58,13 @@ function addData(books) {
     addAndShowMore.appendChild(showMore);
     addAndShowMore.appendChild(addToBagBtn);
 
-    fragment.appendChild(bookContainer);
-    container.appendChild(fragment);
     bookContainer.appendChild(imgContainer);
-    bookContainer.appendChild(bookAuthor);
     imgContainer.appendChild(bookImage);
+    bookContainer.appendChild(bookAuthor);
     bookContainer.appendChild(bookTitle);
     bookContainer.appendChild(purchaseInfo);
+    fragment.appendChild(bookContainer);
+    container.appendChild(fragment);
   }
 
   const showMore = document.getElementsByClassName("addToBagBtn");
@@ -71,150 +73,85 @@ function addData(books) {
   });
 
   function addToBag() {
-    const bookAuthor = this.closest(".book-container").children[1].textContent;
-    const book = booksArray.find((item) => item.author === bookAuthor);
-    cartItems.push(book);
+    const bookId = parseFloat(this.closest('.book-container').id);
+    const book = booksArray.find((item) => item.id === bookId);
+
+    if(cartItems.indexOf(book) === -1){
+      cartItems.push(book);
+    } else {
+      cartItems[cartItems.indexOf(book)].amount++;
+    }
     updateCartItems();
-
-
-    // cartItems.forEach((item) => {
-    //   const cartItem = document.createElement("div");
-    //   cartItem.classList.add("cart-item");
-
-    //   cartItem.innerHTML = `
-    //   <div class="item-img-container">
-    //   <img
-    //     class="item-img"
-    //     src="../BookShop/${item.imageLink}"
-    //     alt="Item 1"
-    //   />
-    // </div>
-    // <div class="item-info">
-    //   <div class="title-and-price">
-    //     <div class="item-title">${item.author}</div>
-    //     <span class="item-price">$${item.price}</span>
-    //   </div>
-    //   <span class="stock">In stock</span>
-    //   <p class="item-description">${item.title}</p>
-    //   <div class="item-amount">
-    //     <p class="amount">
-    //       <span class="increase">+</span
-    //       ><span class="amount-number">${item.amount}</span
-    //       ><span class="decrease">-</span>
-    //     </p>
-    //     <p class="remove-item">
-    //       Remove from the cart - <span class="remove_item--x">X</span>
-    //     </p>
-    //   </div>
-    // </div>
-    //   `;
-
-    //   cartContainer.appendChild(cartItem);
-
-      // const removeCart = document.getElementsByClassName("remove_item--x");
-      // const decreaseAmount = document.getElementsByClassName('decrease');
-      // const increaseAmount = document.getElementsByClassName('increase');
-
-      // Array.from(decreaseAmount).forEach(btn => {
-      //   btn.addEventListener('click', (e) => {
-      //     const element = e.target.closest('.cart-item');
-      //     // const elArray = this.closest(".book-container").children[1].textContent;
-      //     const elArray = element.getElementsByClassName('item-title')[0].textContent;
-      //     const el = booksArray.find(el => el.author === elArray);
-      //     el.amount--;
-
-      //   });
-      // });
-
-
-      // [...removeCart].forEach((removeItem) => {
-      //   removeItem.addEventListener("click", (e) => {
-      //     const element = e.target.closest('.cart-item');
-      //     element.remove();
-      //   });
-      // });
-    // });
-}
-
-const removeCart = document.getElementsByClassName("remove_item--x");
-
-const increaseAmount = document.getElementsByClassName('increase');
-// console.log(decreaseAmount);
-
-      // Array.from(decreaseAmount).forEach(btn => {
-      //   btn.addEventListener('click', (e) => {
-      //     const element = e.target.closest('.cart-item');
-      //     // const elArray = this.closest(".book-container").children[1].textContent;
-      //     const elArray = element.getElementsByClassName('item-title')[0].textContent;
-      //     const el = booksArray.find(el => el.author === elArray);
-      //     el.amount--;
-      //     console.log('clicked');
-      //   });
-      // });
-
-      
-
-
-      [...removeCart].forEach((removeItem) => {
-        removeItem.addEventListener("click", (e) => {
-          const element = e.target.closest('.cart-item');
-          element.remove();
-        });
-      });
-
-
-
-      function decreaseItemAmount(){
-        const decreaseAmount = document.getElementsByClassName('decrease');
-
-        Array.from(decreaseAmount).forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const element = e.target.closest('.cart-item');
-            // const elArray = this.closest(".book-container").children[1].textContent;
-            const elArray = element.getElementsByClassName('item-title')[0].textContent;
-            const el = booksArray.find(el => el.author === elArray);
-            el.amount--;
-            updateCartItems();
-          });
-        });
-      }
+  }
 
 function updateCartItems(){
+  const totalSum = cartItems.reduce((acc, item) => acc + item.price * item.amount, 0);
+  const total = document.querySelector('.total');
+  total.textContent = totalSum;
+
   const cartContainer = document.querySelector(".cart-container");
   cartContainer.innerHTML = "";
 
   cartItems.forEach((item) => {
     const cartItem = document.createElement("div");
     cartItem.classList.add("cart-item");
+    cartItem.id = item.id;
 
     cartItem.innerHTML = `
     <div class="item-img-container">
     <img
       class="item-img"
       src="../BookShop/${item.imageLink}"
-      alt="Item 1"
+      alt="Item"
     />
   </div>
   <div class="item-info">
     <div class="title-and-price">
       <div class="item-title">${item.author}</div>
-      <span class="item-price">$${item.price}</span>
+      <span class="item-price">$${item.price * item.amount}</span>
     </div>
     <span class="stock">In stock</span>
     <p class="item-description">${item.title}</p>
     <div class="item-amount">
       <p class="amount">
-        <span class="increase">+</span
-        ><span class="amount-number">${item.amount}</span
-        ><span class="decrease">-</span>
+        <span id="increase">+</span
+        ><span id="amount-number">${item.amount}</span
+        ><span id="decrease">-</span>
       </p>
       <p class="remove-item">
-        Remove from the cart - <span class="remove_item--x">X</span>
+        Remove from the cart - <span id="remove_item--x">X</span>
       </p>
     </div>
   </div>
     `;
     cartContainer.appendChild(cartItem);
-    decreaseItemAmount();
+
+    const decrease = cartItem.querySelector('#decrease');
+    const increase = cartItem.querySelector('#increase');
+    const removeItem = cartItem.querySelector('#remove_item--x');
+
+    removeItem.addEventListener('click', (e) => {
+      const item = e.target.closest('.cart-item');
+      const itemInCart = cartItems.find(el => el.id === parseInt(item.id));
+
+      cartItems.splice(cartItems.indexOf(itemInCart), 1);
+      item.remove();
+      updateCartItems();
+
+    })
+
+    increase.addEventListener('click', () => {
+      item.amount++;
+      updateCartItems();
+    })
+
+    decrease.addEventListener('click', () => {
+      if(item.amount <= 1) {
+        return;
+      } else {
+        item.amount--;
+        updateCartItems();
+      }
+    })
   })}
 }
